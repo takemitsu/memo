@@ -15,6 +15,13 @@ class UserTableSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@nsp.bz',
             'password' => bcrypt('flowadmin'),
+            'is_admin' => true,
+        ]);
+        DB::table('users')->insert([
+            'name' => 'guest',
+            'email' => 'guest@nsp.bz',
+            'password' => bcrypt('flowguest'),
+            'is_admin' => false,
         ]);
     }
 }

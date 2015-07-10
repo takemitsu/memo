@@ -21,6 +21,11 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 // 認証必須
 Route::group(['middleware' => 'auth'], function() {
+    Route::group(['middleware' => 'admin'], function() {
+        Route::get('admin', function() {
+            return 'only admin users!!';
+        });
+    });
     Route::get('/', function () {
         return view('welcome');
     });
