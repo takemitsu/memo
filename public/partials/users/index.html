@@ -1,0 +1,49 @@
+
+<div class="col-md-8">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h4 class="panel-title pull-left">ユーザ一覧</h4>
+            <div class="btn-group pull-right">
+                <a ng-click="addUser()" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span></a>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <tr>
+                <th>ユーザ名</th>
+                <th>email</th>
+                <th>admin</th>
+                <th>操作</th>
+            </tr>
+            <tr ng-repeat="user in users | filter:search">
+                <td>
+                    <a href="#/users/{{user.id}}">{{user.name}}</a>
+                </td>
+                <td>
+                    {{user.email}}
+                </td>
+                <td>
+                    {{user.is_admin?'admin':'user'}}
+                </td>
+                <td style="width:70px;" class="text-center">
+                    <div class="btn-group">
+                        <a ng-click="editUser(user)" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a ng-click="removeUser(user)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="col-md-4">
+   <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title"><i class="glyphicon glyphicon-search"></i> 検索</h4>
+        </div>
+        <div class="panel-body">
+            <h5 class="name">ユーザ名</h5>
+            <div class="name">
+                <input type="text" ng-model="search.name" class="form-control">
+            </div>
+        </div>
+    </div>
+</div>
