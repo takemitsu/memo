@@ -8,11 +8,16 @@ use App\Sheet;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Contracts\Auth\Guard;
+
 class SheetController extends Controller
 {
+    protected $user;
     protected $sheet;
-    public function __construct(Sheet $sheet)
+
+    public function __construct(Guard $auth, Sheet $sheet)
     {
+        $this->user = $auth->user();
         $this->sheet = $sheet;
     }
     /**
@@ -22,60 +27,32 @@ class SheetController extends Controller
      */
     public function index()
     {
-        return $this->sheet->all()->toJson();
+
+        $sheets = $this->sheet->where('user_id', $this->user->id)->orderBy('updated_at', 'desc')->get();
+        return $sheets->toJson();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
+    public function store(Request $request)
     {
-        //
+        $sheet = new Sheet;
+        $sheet->title = $request->input('title');
+        $sheet->text = $request->input('text');
+        $sheet->user_id = $this->user->id;
+        $sheet->save();
+        return $sheet->toJson();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
+    public function update(Request $request, $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
-    {
-        //
+        $sheet = $this->sheet->find($id);
+        if(empty($sheet)) {
+            abort(404);
+        }
+        $sheet->title = $request->input('title');
+        $sheet->text = $request->input('text');
+        $sheet->save();
+        return $sheet->toJson();
     }
 
     /**
@@ -86,6 +63,11 @@ class SheetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $sheet = $this->sheet->find($id);
+        if(empty($sheet)) {
+            abort(404);
+        }
+        $sheet->delete();
+        return $sheet->toJson();
     }
 }

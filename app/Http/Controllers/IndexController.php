@@ -23,6 +23,6 @@ class IndexController extends Controller
         if($this->user->is_admin) {
             return redirect('admin');
         }
-        return view('welcome');
+        return view('index', ['user' => $this->user,]);
     }
 }

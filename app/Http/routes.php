@@ -21,14 +21,17 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 // 認証必須
 Route::group(['middleware' => 'auth'], function() {
-    // Route::group(['middleware' => 'admin'], function() {
-    //    Route::get('admin', 'AdminController@index');
+    Route::group(['middleware' => 'admin'], function() {
+        Route::get('admin', 'AdminController@index');
         Route::group(['prefix' => 'api'], function () {
             Route::resource('user', 'UserController',
                 ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
-            Route::resource('sheet', 'SheetController',
-                ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
         });
-    // });
+    });
     Route::get('/', 'IndexController@index');
+
+    Route::group(['prefix' => 'api'], function () {
+        Route::resource('sheet', 'SheetController',
+            ['only' => ['index', 'store', 'update', 'destroy']]);
+    });
 });

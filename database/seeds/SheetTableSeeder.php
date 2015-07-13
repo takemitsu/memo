@@ -15,6 +15,14 @@ class SheetTableSeeder extends Seeder
         DB::table('sheets')->insert([
             'title' => 'hoge',
             'text' => 'foobar',
+            'user_id' => 1,
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
+        DB::table('sheets')->insert([
+            'title' => 'hoge2',
+            'text' => 'foobar2',
+            'user_id' => 2,
             'created_at' => $now,
             'updated_at' => $now,
         ]);
