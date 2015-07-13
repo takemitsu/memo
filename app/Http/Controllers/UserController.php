@@ -9,9 +9,6 @@ use App\Http\Requests;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Controllers\Controller;
 
-
-
-
 class UserController extends Controller
 {
     public function index()

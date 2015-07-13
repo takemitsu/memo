@@ -4,8 +4,8 @@
   mainApp = angular.module('mainApp', ['mainControllers', 'ngRoute', 'ui.bootstrap']);
 
   mainApp.config([
-    '$routeProvider', function($routeProvider) {
-      return $routeProvider.when('/dashboard', {
+    '$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
+      $routeProvider.when('/dashboard', {
         templateUrl: '/partials/dashboard/index.html',
         controller: 'DashboardController'
       }).when('/users', {
@@ -14,6 +14,7 @@
       }).otherwise({
         redirectTo: '/dashboard'
       });
+      $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     }
   ]);
 

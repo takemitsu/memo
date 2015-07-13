@@ -5,7 +5,7 @@ mainApp = angular.module 'mainApp', [
     'ui.bootstrap'
 ]
 
-mainApp.config ['$routeProvider', ($routeProvider) ->
+mainApp.config ['$routeProvider', '$httpProvider', ($routeProvider, $httpProvider) ->
     $routeProvider
     .when '/dashboard',
         templateUrl: '/partials/dashboard/index.html'
@@ -16,6 +16,9 @@ mainApp.config ['$routeProvider', ($routeProvider) ->
 
     .otherwise
         redirectTo: '/dashboard'
+
+    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+    return
 ]
 
 #-----------------------------
