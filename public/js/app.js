@@ -54,7 +54,7 @@
           url: '/api/sheet/' + sheet.id
         }).success(function(json) {
           $scope.loadSheets();
-          return alert('削除しました');
+          return showSuccessMessage('削除しました');
         }).error(networkError);
       }
       return false;
@@ -76,6 +76,7 @@
         }
       }).success(function(json) {
         $scope.sheet = json;
+        showSuccessMessage('保存しました');
         return $scope.loadSheets();
       }).error(networkError);
       return false;

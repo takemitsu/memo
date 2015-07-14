@@ -59,7 +59,7 @@ mainControllers.controller 'SheetsController', ($scope, $http, $log) ->
                 url: '/api/sheet/' + sheet.id
             .success (json) ->
                 $scope.loadSheets()
-                alert '削除しました'
+                showSuccessMessage('削除しました')
             .error networkError
         return false
 
@@ -78,6 +78,7 @@ mainControllers.controller 'SheetsController', ($scope, $http, $log) ->
         .success (json) ->
             # $log.info(json)
             $scope.sheet = json
+            showSuccessMessage('保存しました')
             $scope.loadSheets()
         .error networkError
         return false
