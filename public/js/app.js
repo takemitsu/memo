@@ -12,6 +12,7 @@
   mainControllers = angular.module('mainControllers', []);
 
   mainControllers.controller('SheetsController', function($scope, $http, $log) {
+    $scope.detail = false;
     $scope.loadSheets = function() {
       $http.get("/api/sheet", {
         cache: false,
@@ -33,6 +34,7 @@
         title: '',
         text: ''
       };
+      $scope.detail = true;
     };
     $scope.edit = function(sheet) {
       $scope.sheet = {
@@ -40,6 +42,10 @@
         title: sheet.title,
         text: sheet.text
       };
+      $scope.detail = true;
+    };
+    $scope.back = function() {
+      return $scope.detail = false;
     };
     $scope.remove = function(sheet) {
       if (confirm('本当に削除しますか\n' + sheet.title)) {

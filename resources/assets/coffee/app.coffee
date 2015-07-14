@@ -15,6 +15,8 @@ mainApp.config ['$httpProvider', ($httpProvider) ->
 mainControllers = angular.module 'mainControllers', []
 
 mainControllers.controller 'SheetsController', ($scope, $http, $log) ->
+
+    $scope.detail = false
     # ユーザ一覧取得
     $scope.loadSheets = ->
         $http.get "/api/sheet",
@@ -30,18 +32,25 @@ mainControllers.controller 'SheetsController', ($scope, $http, $log) ->
     $scope.sheet =
         title: ''
         text: ''
+
     $scope.add = () ->
         $scope.sheet =
             id: null
             title: ''
             text: ''
+        $scope.detail = true
         return
+
     $scope.edit = (sheet) ->
         $scope.sheet =
             id: sheet.id
             title: sheet.title
             text: sheet.text
+        $scope.detail = true
         return
+
+    $scope.back = ->
+        $scope.detail = false
 
     $scope.remove = (sheet) ->
         if confirm('本当に削除しますか\n' + sheet.title)
