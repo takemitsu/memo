@@ -1,6 +1,7 @@
 
 mainApp = angular.module 'mainApp', [
     'mainControllers'
+    'ui.bootstrap'
 ]
 
 mainApp.config ['$httpProvider', ($httpProvider) ->

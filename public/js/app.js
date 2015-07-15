@@ -1,7 +1,7 @@
 (function() {
   var mainApp, mainControllers, networkError, showErrorMessage, showMessage, showSuccessMessage;
 
-  mainApp = angular.module('mainApp', ['mainControllers']);
+  mainApp = angular.module('mainApp', ['mainControllers', 'ui.bootstrap']);
 
   mainApp.config([
     '$httpProvider', function($httpProvider) {
